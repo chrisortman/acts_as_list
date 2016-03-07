@@ -297,8 +297,10 @@ module ActiveRecord
           def add_to_list_bottom
             if not_in_list? || internal_scope_changed? && !@position_changed || default_position?
               self[position_column] = bottom_position_in_list.to_i + 1
+              @scope_changed = false
             else
               increment_positions_on_lower_items(self[position_column], id)
+              @scope_changed = false
             end
           end
 
